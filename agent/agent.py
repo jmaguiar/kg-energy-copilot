@@ -1,28 +1,21 @@
-import os
-from neo4j import GraphDatabase
-from dotenv import load_dotenv
-
-load_dotenv()
-
-URI = os.getenv("NEO4J_URI")
-USER = os.getenv("NEO4J_USER")
-PASSWORD = os.getenv("NEO4J_PASSWORD")
-
-driver = GraphDatabase.driver(URI, auth=(USER, PASSWORD))
+from agent.graph_client import GraphClient
+from agent.tools import TOOLS
 
 
-def run_query(query):
-
-    with driver.session() as session:
-        result = session.run(query)
-        return [record.data() for record in result]
+client = GraphClient()
 
 
-query = """
-MATCH (p:PowerStation)-[:SUPPLIES]->(:Substation)-[:DISTRIBUTES]->(c:Consumer)
-RETURN p.name, c.name
-"""
+def answer(question):
+    question = question.lower()
 
-results = run_query(query)
+    for keyword, query in TOOLS.items():
+        if keyword in question:
+            return client.run_query(query)
 
-print(results)
+    return "I don't know how to answer that yet."
+
+
+if __name__ == "__main__":
+    question = input("Ask a question: ")
+    response = answer(question)
+    print(response)
