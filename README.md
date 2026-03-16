@@ -14,17 +14,19 @@ The repository is designed as a **technical portfolio project** showcasing:
 
 ---
 
-# Architecture
+## Quick Overview
+
+
+Architecture
 
 The system implements a **Graph AI Copilot architecture**.
 
 ```
-
 User
 ↓
-Agent
+AI Agent
 ↓
-LLM (Ollama)
+Local LLM (Ollama)
 ↓
 Cypher Generation
 ↓
@@ -35,10 +37,24 @@ GraphClient
 Neo4j Knowledge Graph
 ↓
 Results
-
 ```
 
 The agent converts **natural language questions into Cypher queries** executed on the graph.
+
+Stack
+
+```
+Neo4j
+Cypher
+Python
+Ollama (local LLM)
+```
+
+Purpose
+
+```
+Demonstrate a Graph + AI architecture for knowledge exploration.
+```
 
 ---
 
