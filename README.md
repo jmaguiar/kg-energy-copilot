@@ -1,29 +1,44 @@
-# KG Energy Copilot
+# kg-energy-copilot
 
-Minimal **Knowledge Graph + Python Agent** demo using **Neo4j**.
+A minimal **Knowledge Graph + AI Agent architecture** built with **Neo4j, Python, and a local LLM**.
 
-This project demonstrates how an AI-style agent can query a knowledge graph representing a simplified **energy distribution network**.
+This project demonstrates how an AI-style agent can query a **Knowledge Graph representing an energy distribution network** by translating natural language questions into Cypher queries.
 
-The goal of the project is to explore:
+The repository is designed as a **technical portfolio project** showcasing:
 
-* Knowledge Graph modeling
-* Cypher queries
-* Python integration with Neo4j
-* Agent-style architectures for data exploration
+- Knowledge Graph modeling
+- Cypher query design
+- Python + Neo4j integration
+- Agent-style architectures
+- LLM-driven query generation
 
 ---
 
 # Architecture
 
-User question
+The system implements a **Graph AI Copilot architecture**.
+
+```
+
+User
 ↓
-Python Agent
+Agent
 ↓
-Cypher query
+LLM (Ollama)
+↓
+Cypher Generation
+↓
+Cypher Extraction + Validation
+↓
+GraphClient
 ↓
 Neo4j Knowledge Graph
 ↓
 Results
+
+```
+
+The agent converts **natural language questions into Cypher queries** executed on the graph.
 
 ---
 
@@ -33,31 +48,46 @@ The graph represents a simplified **energy grid**.
 
 ## Nodes
 
-* PowerStation
-* Substation
-* Consumer
+```
+
+PowerStation
+Substation
+Consumer
+
+```
 
 ## Relationships
+
+```
 
 PowerStation → SUPPLIES → Substation
 Substation → DISTRIBUTES → Consumer
 
-Example:
+```
+
+Example topology:
+
+```
 
 SolarPlant1 → SubstationA → Factory1
 WindFarm1 → SubstationB → Home1
+
+```
 
 ---
 
 # Project Structure
 
 ```
+
 kg-energy-copilot
 │
 ├── agent
 │   ├── agent.py
 │   ├── graph_client.py
-│   └── tools.py
+│   ├── cypher_generator.py
+│   ├── validator.py
+│   └── prompts.py
 │
 ├── queries
 │   └── energy_queries.py
@@ -71,7 +101,78 @@ kg-energy-copilot
 │
 ├── README.md
 └── requirements.txt
+
 ```
+
+---
+
+# Project Phases
+
+## Phase 1 — Knowledge Graph Prototype ✔
+
+Implemented:
+
+- Neo4j graph model
+- Seed dataset
+- Cypher queries
+- Python Neo4j integration
+- GraphClient abstraction
+- Agent architecture
+
+Architecture:
+
+```
+
+User
+↓
+Agent
+↓
+Tools / Query Layer
+↓
+GraphClient
+↓
+Neo4j
+
+```
+
+---
+
+## Phase 2 — LLM Graph Agent ✔
+
+The system now supports **natural language questions**.
+
+Workflow:
+
+```
+
+User question
+↓
+Local LLM (Ollama)
+↓
+Generate Cypher query
+↓
+Cypher extraction
+↓
+Query validation
+↓
+Neo4j execution
+↓
+Results
+
+```
+
+Key features:
+
+- Local LLM integration via **Ollama**
+- Cypher generation module
+- Graph schema prompt
+- Cypher extraction layer
+- Query validation guardrails
+- Error handling (agent does not crash)
+
+The current model used is **tinyllama**, which occasionally produces incorrect queries.
+
+The goal of Phase 2 was to **validate the architecture**, not optimize model accuracy.
 
 ---
 
@@ -80,72 +181,138 @@ kg-energy-copilot
 Clone the repository:
 
 ```
-git clone https://github.com/YOUR_USERNAME/kg-energy-copilot.git
+
+git clone [https://github.com/YOUR_USERNAME/kg-energy-copilot.git](https://github.com/YOUR_USERNAME/kg-energy-copilot.git)
 cd kg-energy-copilot
+
 ```
 
 Create environment:
 
 ```
+
 conda create -n kg-agent python=3.11
 conda activate kg-agent
+
 ```
 
 Install dependencies:
 
 ```
+
 pip install -r requirements.txt
+
 ```
 
 ---
 
 # Run the Agent
 
-Start Neo4j and load the dataset (`data/seed.cypher`).
+Start Neo4j and load the dataset:
+
+```
+
+data/seed.cypher
+
+```
 
 Then run:
 
 ```
+
 python -m agent.agent
+
 ```
 
 Example interaction:
 
 ```
+
 Ask a question:
-Which factories are powered?
+Which consumers are powered?
+
 ```
 
 Example output:
 
 ```
+
 SolarPlant1 → Factory1
 HydroPlant1 → Factory2
+
 ```
 
 ---
 
 # Tech Stack
 
-* Neo4j
-* Cypher
-* Python
-* Knowledge Graphs
-* Agent-based architecture
+Graph Database
+
+```
+
+Neo4j
+
+```
+
+Graph Query Language
+
+```
+
+Cypher
+
+```
+
+Language
+
+```
+
+Python
+
+```
+
+LLM
+
+```
+
+Local LLM via Ollama
+
+```
+
+Development
+
+```
+
+VSCode
+WSL
+Conda
+
+```
 
 ---
 
-# Future Improvements
+# Roadmap
 
-Possible extensions of this project:
+```
 
-* LLM → Cypher query generation
-* Larger graph datasets
-* Graph visualization
-* Web interface for querying the graph
+Phase 1 — Knowledge Graph prototype ✔
+Phase 2 — LLM Graph Agent ✔
+Phase 3 — Graph dataset scaling
+Phase 4 — Graph analytics queries
+Phase 5 — Graph visualization
+Phase 6 — Production architecture
+
+```
 
 ---
 
 # Purpose
 
-This project is a **minimal Knowledge Graph prototype** designed to explore how graph databases and AI-style agents can be combined to query structured relational data.
+This project demonstrates how to build a **Graph + AI system architecture** combining:
+
+- Knowledge Graphs
+- Agent architectures
+- LLM query generation
+- Graph data exploration
+
+It is designed as a **technical portfolio project for Tech Lead and Graph AI architecture roles**.
+
